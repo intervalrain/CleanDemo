@@ -27,6 +27,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanDemo.Application", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CleanDemo.Api", "src\CleanDemo.Api\CleanDemo.Api.csproj", "{D54F24A9-5744-4D7B-AD06-0BE97B03FF47}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{4A539707-10D2-4C60-8065-D83F3B0103F9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{AB3DA8CF-ED63-4987-AC2C-7C668D7A287C}"
+	ProjectSection(SolutionItems) = preProject
+		build.yml = build.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -88,5 +95,6 @@ Global
 		{DD9E2083-FB91-4DEA-927D-A97F044601FE} = {4003F9AA-9637-4D6D-88D3-CA417215254E}
 		{606DD0D6-ACA3-428E-A9C9-A62FAE85DBAF} = {4003F9AA-9637-4D6D-88D3-CA417215254E}
 		{D54F24A9-5744-4D7B-AD06-0BE97B03FF47} = {4003F9AA-9637-4D6D-88D3-CA417215254E}
+		{AB3DA8CF-ED63-4987-AC2C-7C668D7A287C} = {4A539707-10D2-4C60-8065-D83F3B0103F9}
 	EndGlobalSection
 EndGlobal
