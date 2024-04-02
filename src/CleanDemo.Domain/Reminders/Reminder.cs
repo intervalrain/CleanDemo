@@ -1,5 +1,7 @@
 ﻿using CleanDemo.Domain.Common;
 
+using ErrorOr;
+
 namespace CleanDemo.Domain.Reminders;
 
 public class Reminder : Entity
@@ -9,6 +11,8 @@ public class Reminder : Entity
     public string Text { get; }
     public DateTime DateTime { get; }
     public DateOnly Date => DateOnly.FromDateTime(DateTime.Date);
+
+    public bool IsDismissed { get; private set; }
 
     public Reminder(
         Guid userId,
@@ -22,6 +26,11 @@ public class Reminder : Entity
         SubscriptionId = subscriptionId;
         Text = text;
         DateTime = dateTime;
+    }
+
+    public ErrorOr<Success> Dismiss()
+    {
+        throw new NotImplementedException();
     }
 
     private Reminder()
