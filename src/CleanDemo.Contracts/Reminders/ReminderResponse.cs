@@ -1,3 +1,3 @@
 ﻿namespace CleanDemo.Contracts.Reminders;
 
-public record ReminderResponsep(string Text, DateTimeOffset DateTime);
+public record ReminderResponse(string Text, DateTimeOffset DateTime);
