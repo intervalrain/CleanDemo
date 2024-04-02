@@ -26,12 +26,14 @@
     <None Remove="Users\" />
     <None Remove="Reminders\Persistence\" />
     <None Remove="Users\Persistence\" />
+    <None Remove="Common\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Reminders\" />
     <Folder Include="Users\" />
     <Folder Include="Reminders\Persistence\" />
     <Folder Include="Users\Persistence\" />
+    <Folder Include="Common\" />
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
