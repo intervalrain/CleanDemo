@@ -21,6 +21,18 @@
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Reminders\" />
+    <None Remove="Users\" />
+    <None Remove="Reminders\Persistence\" />
+    <None Remove="Users\Persistence\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Reminders\" />
+    <Folder Include="Users\" />
+    <Folder Include="Reminders\Persistence\" />
+    <Folder Include="Users\Persistence\" />
+  </ItemGroup>
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
