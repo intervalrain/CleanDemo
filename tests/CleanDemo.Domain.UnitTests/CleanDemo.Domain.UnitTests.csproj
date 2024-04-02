@@ -28,4 +28,10 @@
     <ProjectReference Include="..\..\src\CleanDemo.Domain\CleanDemo.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Users\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Users\" />
+  </ItemGroup>
 </Project>

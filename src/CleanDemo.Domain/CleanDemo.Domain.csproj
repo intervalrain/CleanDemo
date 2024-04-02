@@ -7,10 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Ardalis.SmartEnum" Version="8.0.0" />
     <PackageReference Include="ErrorOr" Version="2.0.1" />
     <PackageReference Include="MediatR" Version="12.2.0" />
     <PackageReference Include="throw" Version="1.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Common\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Common\" />
+  </ItemGroup>
 </Project>
