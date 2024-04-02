@@ -1,4 +1,5 @@
-﻿using CleanDemo.Domain.Reminders;
+﻿using CleanDemo.Application.Common.Interfaces;
+using CleanDemo.Domain.Reminders;
 
 using ErrorOr;
 
@@ -8,9 +9,23 @@ namespace CleanDemo.Application.Reminders.Queries.GetReminder;
 
 public class GetReminderQueryHandler : IRequestHandler<GetReminderQuery, ErrorOr<Reminder>>
 {
-    public Task<ErrorOr<Reminder>> Handle(GetReminderQuery request, CancellationToken cancellationToken)
+    private readonly IRemindersRepository _remindersRepository;
+
+    public GetReminderQueryHandler(IRemindersRepository remindersRepository)
     {
-        throw new NotImplementedException();
+        _remindersRepository = remindersRepository;
+    }
+
+    public async Task<ErrorOr<Reminder>> Handle(GetReminderQuery request, CancellationToken cancellationToken)
+    {
+        var reminder = await _remindersRepository.GetByIdAsync(request.ReminderId, cancellationToken);
+
+        if (reminder?.UserId != request.UserId)
+        {
+            return Error.NotFound(description: "Reminder not found");
+        }
+
+        return reminder;
     }
 }
 

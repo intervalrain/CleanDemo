@@ -7,7 +7,7 @@ public class UsersRepository : IUsersRepository
 {
     private readonly Dictionary<Guid, User> _users = new();
 
-    public async Task AddUserAsync(User user)
+    public async Task AddAsync(User user, CancellationToken cancellationToken)
     {
         await Task.Run(() =>
         {
@@ -19,7 +19,7 @@ public class UsersRepository : IUsersRepository
         });
     }
 
-    public async Task<User?> GetByIdAsync(Guid userId)
+    public async Task<User?> GetByIdAsync(Guid userId, CancellationToken cancellationToken)
     {
         return await Task.Run(() =>
         {
@@ -31,7 +31,24 @@ public class UsersRepository : IUsersRepository
         });
     }
 
-    public async Task UpdateUserAsync(User user)
+    public Task<User?> GetBySubscriptionIdAsync(Guid subscriptionId, CancellationToken cancellationToken)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task RemoveAsync(User user, CancellationToken cancellationToken)
+    {
+        await Task.Run(() =>
+        {
+            if (!_users.ContainsKey(user.Id))
+            {
+                return;
+            }
+            _users.Remove(user.Id);
+        });
+    }
+
+    public async Task UpdateAsync(User user, CancellationToken cancellationToken)
     {
         await Task.Run(() =>
         {
