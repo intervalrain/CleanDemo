@@ -1,68 +1,55 @@
 ﻿using CleanDemo.Application.Common.Interfaces;
 using CleanDemo.Domain.Reminders;
+using CleanDemo.Infrastructure.Common;
+
+using Microsoft.EntityFrameworkCore;
 
 namespace CleanDemo.Infrastructure.Reminders.Persistence;
 
 public class RemindersRepository : IRemindersRepository
 {
-    private readonly Dictionary<Guid, Reminder> _reminders = new();
+    private readonly AppDbContext _dbContext;
+
+    public RemindersRepository(AppDbContext dbContext)
+    {
+        _dbContext = dbContext;
+    }
 
     public async Task AddAsync(Reminder reminder, CancellationToken cancellationToken)
     {
-        await Task.Run(() =>
-        {
-            if (_reminders.ContainsKey(reminder.Id))
-            {
-                throw new InvalidOperationException();
-            }
-            _reminders.Add(reminder.Id, reminder);
-        });
+        await _dbContext.AddAsync(reminder, cancellationToken);
+        await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
     public async Task<Reminder?> GetByIdAsync(Guid reminderId, CancellationToken cancellationToken)
     {
-        return await Task.Run(() =>
-        {
-            if (!_reminders.ContainsKey(reminderId))
-            {
-                throw new KeyNotFoundException();
-            }
-            return _reminders[reminderId];
-        });
+        return await _dbContext.Reminders.FindAsync(reminderId, cancellationToken);
     }
 
-    public Task<List<Reminder>> ListBySubscriptionIdAsync(Guid subscriptionId, CancellationToken cancellationToken)
+    public async Task<List<Reminder>> ListBySubscriptionIdAsync(Guid subscriptionId, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return await _dbContext.Reminders
+            .AsNoTracking()
+            .Where(reminder => reminder.SubscriptionId == subscriptionId)
+            .ToListAsync(cancellationToken);
     }
 
     public async Task RemoveAsync(Reminder reminder, CancellationToken cancellationToken)
     {
-        await Task.Run(() =>
-        {
-            if (!_reminders.ContainsKey(reminder.Id))
-            {
-                return;
-            }
-            _reminders.Remove(reminder.Id);
-        });
+        _dbContext.Remove(reminder);
+        await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
     public async Task RemoveRangeAsync(List<Reminder> reminders, CancellationToken cancellationToken)
     {
-        foreach (var reminder in reminders)
-        {
-            await RemoveAsync(reminder, cancellationToken);
-        }
-        
+        _dbContext.RemoveRange(reminders, cancellationToken);
+        await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
     public async Task UpdateAsync(Reminder reminder, CancellationToken cancellationToken)
     {
-        await Task.Run(() =>
-        {
-            _reminders[reminder.Id] = reminder;
-        });
+        _dbContext.Update(reminder);
+        await _dbContext.SaveChangesAsync(cancellationToken);
     }
 }
 

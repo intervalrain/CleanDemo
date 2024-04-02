@@ -1,58 +1,44 @@
 ﻿using CleanDemo.Application.Common.Interfaces;
 using CleanDemo.Domain.Users;
+using CleanDemo.Infrastructure.Common;
+
+using Microsoft.EntityFrameworkCore;
 
 namespace CleanDemo.Infrastructure.Users.Persistence;
 
 public class UsersRepository : IUsersRepository
 {
-    private readonly Dictionary<Guid, User> _users = new();
+    private readonly AppDbContext _dbContext;
 
+    public UsersRepository(AppDbContext dbContext)
+    {
+        _dbContext = dbContext;
+    }
     public async Task AddAsync(User user, CancellationToken cancellationToken)
     {
-        await Task.Run(() =>
-        {
-            if (_users.ContainsKey(user.Id))
-            {
-                throw new InvalidOperationException();
-            }
-            _users.Add(user.Id, user);
-        });
+        await _dbContext.AddAsync(user, cancellationToken);
+        await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
     public async Task<User?> GetByIdAsync(Guid userId, CancellationToken cancellationToken)
     {
-        return await Task.Run(() =>
-        {
-            if (!_users.ContainsKey(userId))
-            {
-                throw new KeyNotFoundException();
-            }
-            return _users[userId];
-        });
+        return await _dbContext.Users.FindAsync(userId, cancellationToken);
     }
 
-    public Task<User?> GetBySubscriptionIdAsync(Guid subscriptionId, CancellationToken cancellationToken)
+    public async Task<User?> GetBySubscriptionIdAsync(Guid subscriptionId, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        return await _dbContext.Users.FirstOrDefaultAsync(user => user.Subscription.Id == subscriptionId, cancellationToken);
     }
 
     public async Task RemoveAsync(User user, CancellationToken cancellationToken)
     {
-        await Task.Run(() =>
-        {
-            if (!_users.ContainsKey(user.Id))
-            {
-                return;
-            }
-            _users.Remove(user.Id);
-        });
+        _dbContext.Remove(user);
+        await _dbContext.SaveChangesAsync(cancellationToken);
     }
 
     public async Task UpdateAsync(User user, CancellationToken cancellationToken)
     {
-        await Task.Run(() =>
-        {
-            _users[user.Id] = user;
-        });
+        _dbContext.Update(user);
+        await _dbContext.SaveChangesAsync(cancellationToken);
     }
 }
