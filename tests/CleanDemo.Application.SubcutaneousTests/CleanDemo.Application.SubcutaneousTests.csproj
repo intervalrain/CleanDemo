@@ -22,6 +22,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+    <PackageReference Include="FluentAssertions" Version="6.12.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,4 +30,30 @@
     <ProjectReference Include="..\TestCommon\TestCommon.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Common\" />
+    <None Remove="Reminders\" />
+    <None Remove="Subscriptions\" />
+    <None Remove="Reminders\Commands\" />
+    <None Remove="Reminders\Queries\" />
+    <None Remove="Subscriptions\Commands\" />
+    <None Remove="Subscriptions\Queries\" />
+    <None Remove="Reminders\Commands\SetReminder\" />
+    <None Remove="Subscriptions\Commands\CreateSubscription\" />
+    <None Remove="Subscriptions\Queries\GetSubscription\" />
+    <None Remove="Reminders\Queries\GetReminder\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Common\" />
+    <Folder Include="Reminders\" />
+    <Folder Include="Subscriptions\" />
+    <Folder Include="Reminders\Commands\" />
+    <Folder Include="Reminders\Queries\" />
+    <Folder Include="Subscriptions\Commands\" />
+    <Folder Include="Subscriptions\Queries\" />
+    <Folder Include="Reminders\Commands\SetReminder\" />
+    <Folder Include="Subscriptions\Commands\CreateSubscription\" />
+    <Folder Include="Subscriptions\Queries\GetSubscription\" />
+    <Folder Include="Reminders\Queries\GetReminder\" />
+  </ItemGroup>
 </Project>

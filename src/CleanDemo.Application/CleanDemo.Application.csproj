@@ -14,12 +14,32 @@
     <None Remove="Common\Interfaces\" />
     <None Remove="Common\Models\" />
     <None Remove="Reminders\" />
+    <None Remove="Reminders\Commands\" />
+    <None Remove="Reminders\Events\" />
+    <None Remove="Reminders\Queries\" />
+    <None Remove="Reminders\Queries\GetReminder\" />
+    <None Remove="Common\Security\" />
+    <None Remove="Common\Security\Permissions\" />
+    <None Remove="Common\Security\Roles\" />
+    <None Remove="Common\Security\Request\" />
+    <None Remove="Common\Security\Policies\" />
+    <None Remove="Reminders\Commands\SetReminder\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Common\" />
     <Folder Include="Common\Interfaces\" />
     <Folder Include="Common\Models\" />
     <Folder Include="Reminders\" />
+    <Folder Include="Reminders\Commands\" />
+    <Folder Include="Reminders\Events\" />
+    <Folder Include="Reminders\Queries\" />
+    <Folder Include="Reminders\Queries\GetReminder\" />
+    <Folder Include="Common\Security\" />
+    <Folder Include="Common\Security\Permissions\" />
+    <Folder Include="Common\Security\Roles\" />
+    <Folder Include="Common\Security\Request\" />
+    <Folder Include="Common\Security\Policies\" />
+    <Folder Include="Reminders\Commands\SetReminder\" />
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>

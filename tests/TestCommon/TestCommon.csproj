@@ -16,12 +16,14 @@
     <None Remove="Subscriptions\" />
     <None Remove="TestConstants\" />
     <None Remove="Users\" />
+    <None Remove="Security\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Reminders\" />
     <Folder Include="Subscriptions\" />
     <Folder Include="TestConstants\" />
     <Folder Include="Users\" />
+    <Folder Include="Security\" />
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
