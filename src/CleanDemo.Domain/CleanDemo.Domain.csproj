@@ -14,8 +14,10 @@
 
   <ItemGroup>
     <None Remove="Common\" />
+    <None Remove="Users\Events\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Common\" />
+    <Folder Include="Users\Events\" />
   </ItemGroup>
 </Project>

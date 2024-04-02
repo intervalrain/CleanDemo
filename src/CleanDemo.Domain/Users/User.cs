@@ -2,8 +2,11 @@
 
 using CleanDemo.Domain.Common;
 using CleanDemo.Domain.Reminders;
+using CleanDemo.Domain.Users.Events;
 
 using ErrorOr;
+
+using Throw;
 
 namespace CleanDemo.Domain.Users;
 
@@ -36,7 +39,23 @@ public class User : Entity
 
     public ErrorOr<Success> SetReminder(Reminder reminder)
     {
-        throw new NotImplementedException();
+        if (Subscription == Subscription.Canceled)
+        {
+            return Error.NotFound(description: "Subscription not found");
+        }
+
+        reminder.SubscriptionId.Throw().IfNotEquals(Subscription.Id);
+
+        if (HasReachedDailyReminderLimit(reminder.DateTime))
+        {
+            return UserErrors.CannotCreateMoreRemindersThanSubscriptionAllows;
+        }
+
+        _calendar.IncrementEventCount(reminder.Date);
+        _reminderIds.Add(reminder.Id);
+        _domainEvents.Add(new ReminderSetEvent(reminder));
+
+        return Result.Success;
     }
 
     public ErrorOr<Success> DismissReminder(Guid reminderId)
@@ -57,6 +76,13 @@ public class User : Entity
     public void DeleteAllReminders()
     {
         throw new NotImplementedException();
+    }
+
+    private bool HasReachedDailyReminderLimit(DateTime dateTime)
+    {
+        var dailyReminderCount = _calendar.GetNumEventsOnDay(dateTime.Date);
+
+        return dailyReminderCount >= Subscription.SubscriptionType.GetMaxDailyReminders();
     }
 
     private User() { }

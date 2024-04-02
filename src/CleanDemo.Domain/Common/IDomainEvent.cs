@@ -2,7 +2,7 @@
 
 namespace CleanDemo.Domain.Common;
 
-public class IDomainEvent : INotification
+public interface IDomainEvent : INotification
 {
 }
 
